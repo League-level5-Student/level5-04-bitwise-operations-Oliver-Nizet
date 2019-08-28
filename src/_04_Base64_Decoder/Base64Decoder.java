@@ -28,7 +28,7 @@ public class Base64Decoder {
 	 */
 
 	public static void main(String[] args) {
-		System.out.println(convert4CharsTo24Bits("gJ+3"));
+		System.out.println(convert4CharsTo24Bits("454d"));
 	}
 
 	final static char[] base64Chars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -66,9 +66,32 @@ public class Base64Decoder {
 			for (int j = i - 1; j >= 0; j--) {	
 				bin += binaryNum[j];
 			}
+			while(bin.length()<6) {
+				bin = "0" + bin;
+			}
 			bits6[a] = bin;
+			System.out.println(bits6[a]);
 		}
-		return null;
+		String bitsall = "";
+		for(String b6 : bits6) {
+			bitsall += b6;
+		}
+		System.out.println(bitsall);
+		String[] bits8 = new String[3];
+		bits8[0] = bitsall.substring(0,8);
+		bits8[1] = bitsall.substring(8,16);
+		bits8[2] = bitsall.substring(16,24);
+		for(String b8 : bits8) {
+			System.out.println(b8);
+		}
+		byte[] bytes = new byte[3];
+		int i0 = Integer.parseInt(bits8[0],2);
+		int i1 = Integer.parseInt(bits8[1],2);
+		int i2 = Integer.parseInt(bits8[2],2);
+		bytes[0] = (byte) i0;
+		bytes[1] = (byte) i1;
+		bytes[2] = (byte) i2;
+		return bytes;
 	}
 
 	// 3. Complete this method so that it takes in a string of any length
